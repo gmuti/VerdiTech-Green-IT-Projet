@@ -89,6 +89,8 @@ export const selectAllLivres = createSelector(
 
 ✅ **Lazy Loading** : Chargement dynamique des modules Angular uniquement lorsque nécessaire.
 
+Ajout du domaine externe https://meritis.fr à la directive imgSrc de la politique CSP pour autoriser le chargement des images externes, par exemple : "https://meritis.fr/wp-content/uploads/2025/03/2-1.png"
+
 ### 📌 Exemple d'optimisation des images avec Lazy Loading
 ```html
 <img *ngIf="article.imageUrl" [src]="article.imageUrl" alt="Image de l'article" width="200" loading="lazy">
