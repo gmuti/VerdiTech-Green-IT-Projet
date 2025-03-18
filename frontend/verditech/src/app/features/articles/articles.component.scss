@@ -1,0 +1,104 @@
+/* Styles pour la section des articles */
+.articles {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.article {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.article p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.read-more {
+  display: inline-block;
+  text-decoration: none;
+  color: #ffff;
+  font-weight: bold;
+  background-color: #4b7a3b;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Section Green IT Tips */
+.green-it-tips {
+  background-color: #e1f5e1;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.green-it-tips h3 {
+  color: #2a7f2d;
+}
+
+.green-it-tips ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.green-it-tips ul li {
+  margin-bottom: 10px;
+}
+
+/* Call to action section */
+.call-to-action {
+  background-color: #ffecb3;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.call-to-action h3 {
+  font-size: 1.5rem;
+  color: #d57300;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cta-button:hover {
+  background-color: #45a049;
+}
+
+.head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h3{
+    margin:5px;
+  }
+}
+
+.content{
+  img{
+    width: 20rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: block;
+  }
+}

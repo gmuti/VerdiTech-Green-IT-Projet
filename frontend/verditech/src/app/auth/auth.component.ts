@@ -1,61 +1,50 @@
 import { Component } from '@angular/core';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { firebaseConfig } from '../firebase-config';
-import { initializeApp } from 'firebase/app';
+import { AuthService } from '../core/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';  // Importation de HttpClient
-
-// Initialisation de Firebase
-initializeApp(firebaseConfig);
+import {AsyncPipe, NgIf} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
+  templateUrl: './auth.component.html',
   imports: [
     FormsModule,
+    AsyncPipe,
     NgIf
   ],
-  templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
   email: string = '';
   password: string = '';
-  token: string = '';  // Pour stocker le token
 
-  constructor(private http: HttpClient) {}
+  constructor(protected authService: AuthService, private http: HttpClient, private router: Router) {}
 
   login() {
-    const auth = getAuth();
-
-    // Connexion avec email et mot de passe
-    signInWithEmailAndPassword(auth, this.email, this.password)
-      .then((userCredential) => {
-        // Récupérer le token
-        userCredential.user?.getIdToken().then((token) => {
-          this.token = token;
-          console.log('Token récupéré:', this.token);  // Affichage du token dans la console
-          this.callApi(token);  // Appel à l'API avec le token
-        });
-      })
-      .catch((error) => {
-        console.error('Erreur de connexion:', error);
-      });
+    this.authService.login(this.email, this.password).subscribe(
+      token => {
+        console.log('Utilisateur connecté, token:', token);
+        this.callApi(token);
+        this.router.navigate(['/admin']); // ✅ Redirection vers Home après connexion
+      },
+      error => console.error('Erreur de connexion:', error)
+    );
   }
 
-  // Fonction pour appeler l'API protégée avec le token
+  logout() {
+    this.authService.logout();
+    console.log('Utilisateur déconnecté');
+  }
+
   callApi(token: string) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http.get('http://localhost:3000/protected', { headers })
       .subscribe(
-        (response) => {
-          console.log('Réponse de l\'API protégée:', response);
-        },
-        (error) => {
-          console.error('Erreur lors de l\'accès à l\'API protégée:', error);
-        }
+        response => console.log('Réponse de l\'API protégée:', response),
+        error => console.error('Erreur API:', error)
       );
   }
 }

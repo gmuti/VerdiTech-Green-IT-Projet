@@ -1,1 +1,44 @@
-<p>articles works!</p>
+<h2>Articles Green IT et Développement Durable</h2>
+<p>
+  Découvrez nos derniers articles sur les pratiques écologiques et le développement durable. Restez informé des dernières tendances et solutions pour réduire l'impact du numérique sur notre planète.
+</p>
+
+<!-- Liste des articles -->
+<div class="articles">
+  <div *ngFor="let article of articlesSignal(); trackBy: trackByArticleId">
+    <div class="article">
+      <div class="head">
+        <h3>{{ article.title }}</h3>
+        <a href="/articles/{{ article.id }}" class="read-more">Voir plus</a>
+      </div>
+      <div class="content">
+        <img *ngIf="article.imageUrl" [src]="article.imageUrl" alt="Image de l'article" loading="lazy">
+        <p>{{ article.content }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section Green IT supplémentaire -->
+<section class="green-it-tips">
+  <h3>Pratiques Green IT : Quelques Conseils</h3>
+  <p>
+    Adoptez des comportements numériques plus responsables pour contribuer à un avenir durable. Voici quelques bonnes pratiques à mettre en place :
+  </p>
+  <ul>
+    <li><strong>Optimisez l'utilisation des appareils :</strong> Éteignez vos équipements lorsqu'ils ne sont pas utilisés pour économiser de l'énergie.</li>
+    <li><strong>Privilégiez des équipements reconditionnés :</strong> Choisissez des appareils réparables ou d'occasion pour réduire les déchets électroniques.</li>
+    <li><strong>Utilisez des moteurs de recherche écologiques :</strong> Adoptez des moteurs comme <a href="https://www.ecosia.org" target="_blank">Ecosia</a> ou <a href="https://www.lilo.org" target="_blank">Lilo</a>, qui soutiennent des projets environnementaux.</li>
+    <li><strong>Recyclage :</strong> Pensez à recycler vos anciens équipements pour limiter leur impact sur l'environnement.</li>
+  </ul>
+</section>
+
+<!-- Encourager à rejoindre des initiatives écologiques -->
+<section class="call-to-action">
+  <h3>Engagez-vous pour un Numérique Responsable</h3>
+  <p>
+    Chaque petit geste compte pour réduire l'empreinte carbone du numérique. Rejoignez notre initiative et adoptez des pratiques Green IT dès aujourd'hui. Ensemble, nous pouvons faire la différence !
+  </p>
+  <a href="/engagement-green-it" class="cta-button">Je m'engage</a>
+</section>
+

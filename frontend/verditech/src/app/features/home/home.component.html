@@ -1,1 +1,51 @@
-<p>home works!</p>
+<div class="home-container" [class.dark-mode]="darkMode">
+  <header>
+    <h1>VerdiTech - Green IT pour un avenir durable</h1>
+    <p>Adoptez des solutions écologiques pour réduire l'empreinte carbone numérique</p>
+    <p>
+      Chez VerdiTech, nous croyons qu'il est essentiel de repenser notre utilisation du numérique pour préserver notre planète. Nos solutions éco-responsables vous aident à réduire l'impact environnemental de vos équipements informatiques, de vos achats et de vos pratiques numériques.
+    </p>
+    <button (click)="toggleDarkMode()">Mode Sombre</button>
+  </header>
+
+  <!-- Carrousel des prestations -->
+  <div class="carousel">
+    <div class="carousel-images">
+      <img *ngFor="let image of carouselImages; let i = index"
+           [src]="image"
+           [alt]="'Image ' + (i+1)"
+           [class.active]="i === currentImageIndex" />
+    </div>
+    <button (click)="prevImage()">Précédent</button>
+    <button (click)="nextImage()">Suivant</button>
+  </div>
+
+  <!-- Articles sur Green IT -->
+  <h2>Nos Articles</h2>
+  <div class="articles">
+    <div class="article" *ngFor="let article of articlesSignal()">
+      <img [src]="article.imageUrl" alt="{{ article.title }}" loading="lazy" />
+      <div class="article-content">
+        <h3>{{ article.title }}</h3>
+        <p>{{ article.content }}</p>
+        <button (click)="viewArticle(article)">Lire l'article</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Engagements et pratiques Green IT -->
+  <div class="accordion">
+    <h2>Nos Engagements Green IT</h2>
+    <div *ngFor="let section of sections; let i = index" class="section">
+      <h3 (click)="toggleSection(i)">{{ section.title }}</h3>
+      <p *ngIf="section.open">{{ section.content }}</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>Rejoignez-nous dans notre démarche éco-responsable et contribuez à un avenir numérique durable. </p>
+  </footer>
+</div>
+
+<!-- Appel à l'action -->
+<button class="cta" (click)="contactUs()">Contactez-nous pour en savoir plus sur nos solutions Green IT</button>

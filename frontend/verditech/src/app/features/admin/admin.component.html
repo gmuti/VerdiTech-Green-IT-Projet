@@ -1,1 +1,28 @@
-<p>admin works!</p>
+<div class="admin-header">
+  <h2>Gestion des Articles</h2>
+  <button *ngIf="!isEditing" id="add-button" (click)="toggleForm()">Ajouter un article</button>
+</div>
+
+  <!-- Formulaire d'ajout ou de modification -->
+<div *ngIf="isFormVisible" class="form-container">
+  <input type="text" [(ngModel)]="newArticle.title" placeholder="Titre">
+  <textarea [(ngModel)]="newArticle.content" placeholder="Contenu"></textarea>
+  <input type="text" [(ngModel)]="newArticle.imageUrl" placeholder="URL de l'image">
+  <button (click)="isEditing ? saveArticle() : addArticle()">{{ isEditing ? 'Sauvegarder' : 'Ajouter' }}</button>
+  <button (click)="cancelEdit()">Annuler</button>
+</div>
+
+<!-- Liste des articles existants -->
+<div *ngFor="let article of articlesSignal()" class="article-card">
+  <div class="head">
+    <h3>{{ article.title }}</h3>
+    <div class="right">
+      <button (click)="editArticle(article)">Modifier</button>
+      <button (click)="deleteArticle(article.id)">Supprimer</button>
+    </div>
+  </div>
+  <div class="content">
+    <img *ngIf="article.imageUrl" [src]="article.imageUrl" alt="Image de l'article" width="200">
+    <p>{{ article.content }}</p>
+  </div>
+</div>
