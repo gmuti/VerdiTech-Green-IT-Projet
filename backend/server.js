@@ -15,12 +15,22 @@ firebaseAdmin.initializeApp({
 // Initialiser l'application Express
 const app = express();
 const port = 3000;
+const compression = require('compression');
+app.use(compression());
+const sharp = require('sharp');
+
+// Route pour redimensionner une image
+app.get('/image', (req, res) => {
+    sharp('image.jpg').toFormat('webp').pipe(res);
+});
+
+app.use(express.static('public', { maxAge: '1y' }));
 
 // Importer les routes d'articles
 const articleRoutes = require('./routes/articles');
 
 app.use(cors({
-    origin: 'http://localhost:4200'  // Autoriser uniquement les requêtes venant de cette origine
+    origin: 'http://localhost:4200'
 }));
 
 // Middleware pour parser le body des requêtes HTTP
@@ -35,7 +45,7 @@ app.get('/', (req, res) => {
 app.get('/protected', async (req, res) => {
     const idToken = req.headers.authorization?.split('Bearer ')[1];
 
-    console.log("Token reçu :", idToken); // Affiche le token dans la console pour vérifier sa validité
+    console.log("Token reçu :", idToken);
 
     if (!idToken) {
         return res.status(401).send('No token provided');
@@ -44,7 +54,7 @@ app.get('/protected', async (req, res) => {
     try {
         // Vérifier le token Firebase
         const decodedToken = await firebaseAdmin.auth().verifyIdToken(idToken);
-        console.log("Token décodé : ", decodedToken); // Afficher le contenu du token
+        console.log("Token décodé : ", decodedToken);
 
         res.status(200).send(`Hello, ${decodedToken.name}`);
     } catch (error) {

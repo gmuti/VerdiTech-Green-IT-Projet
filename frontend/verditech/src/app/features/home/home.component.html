@@ -13,7 +13,10 @@
     <div class="carousel-images">
       <img *ngFor="let image of carouselImages; let i = index"
            [src]="image"
+           sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
            [alt]="'Image ' + (i+1)"
+           width="400"
+           height="200"
            [class.active]="i === currentImageIndex" />
     </div>
     <button (click)="prevImage()">Précédent</button>
@@ -24,7 +27,7 @@
   <h2>Nos Articles</h2>
   <div class="articles">
     <div class="article" *ngFor="let article of articlesSignal()">
-      <img [src]="article.imageUrl" alt="{{ article.title }}" loading="lazy" />
+      <img [src]="article.imageUrl" alt="{{ article.title }}" loading="lazy" width="200" height="200">
       <div class="article-content">
         <h3>{{ article.title }}</h3>
         <p>{{ article.content }}</p>

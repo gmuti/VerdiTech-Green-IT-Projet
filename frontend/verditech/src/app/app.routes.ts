@@ -4,7 +4,6 @@ import { ArticlesComponent } from './features/articles/articles.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { AdminComponent } from './features/admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
